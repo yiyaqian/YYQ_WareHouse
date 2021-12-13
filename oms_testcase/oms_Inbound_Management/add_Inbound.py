@@ -10,7 +10,6 @@ import ddt
 from excel.read_excel import *
 from excel.written_token import WrittenToken
 from lib.general_request import General_request
-import warnings
 from log.case_log import log_case_info
 
 result = get_data('../xls/测试用例数据.xls', 5)

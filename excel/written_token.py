@@ -204,10 +204,6 @@ class WrittenToken:
         new_worksheet1.write(length, 5, taskNo)
         new_worksheet1.write(length, 8, consignmentNo)
 
-        # # 获取到上架表，写入【表字段：taskNo】
-        new_worksheet2 = new_workbook.get_sheet(13)
-        new_worksheet2.write(length, 8, taskNo)
-
         # 获取到确认收货表，taskNo【表字段：taskNo】
         new_worksheet = new_workbook.get_sheet(8)
         new_worksheet.write(length, 5, taskNo)
@@ -217,32 +213,42 @@ class WrittenToken:
 
     # 从WMS获取入库单SKU信息接口【wms_Receiving.getdetail_Inbound_sku.py】获取到skuId,写入确认收货sheet表【表字段：skuBarcode】
     @staticmethod
-    def written_skuId(length, skuName, qty, taskNo, consignmentNo, skuId, skuCode, putawayQty):
+    def written_skuId(length, skuName, taskNo, consignmentNo, skuId, skuCode, planQty, boxBarcode):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # 获取到确认收货表，skuId【表字段：skuBarcode】
+        # 获取到确认收货表【表字段：skuBarcode】
         new_worksheet = new_workbook.get_sheet(8)
+        new_worksheet.write(length, 5, taskNo)
+        new_worksheet.write(length, 6, boxBarcode)
         new_worksheet.write(length, 7, skuId)
+        new_worksheet.write(length, 8, planQty)
 
-        # 获取到上架表，skuId【表字段：skuBarcode】
+        # 获取到上架表【表字段：skuBarcode】
         new_worksheet1 = new_workbook.get_sheet(13)
         new_worksheet1.write(length, 5, skuName)
-        new_worksheet1.write(length, 7, qty)
+        new_worksheet1.write(length, 7, planQty)
         new_worksheet1.write(length, 8, taskNo)
         new_worksheet1.write(length, 10, consignmentNo)
         new_worksheet1.write(length, 11, skuId)
         new_worksheet1.write(length, 12, skuCode)
-        new_worksheet1.write(length, 13, putawayQty)
+        new_worksheet1.write(length, 13, planQty)
+
+        # # 获取到新增出库单表【表字段：skuId、skuCode、skuName、batchNo】
+        # new_worksheet = new_workbook.get_sheet(8)
+        # new_worksheet.write(length, 5, taskNo)
+        # new_worksheet.write(length, 6, boxBarcode)
+        # new_worksheet.write(length, 7, skuId)
+        # new_worksheet.write(length, 8, planQty)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
-   # 从WMS获取入库单SKU信息接口【wms_Receiving.getdetail_Inbound_sku.py】获取到skuId,写入确认收货sheet表【表字段：skuBarcode】
+    # 从WMS获取入库单SKU信息接口【wms_Receiving.getdetail_Inbound_sku.py】获取到skuId,写入确认收货sheet表【表字段：skuBarcode】
     @staticmethod
-    def written_skuIds(length, skuName, qty, taskNo, consignmentNo, skuId, skuCode, putawayQty):
+    def written_orderNumber(length, orderNumber):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
@@ -250,17 +256,7 @@ class WrittenToken:
 
         # 获取到确认收货表，skuId【表字段：skuBarcode】
         new_worksheet = new_workbook.get_sheet(8)
-        new_worksheet.write(length, 7, skuId)
-
-        # 获取到上架表，skuId【表字段：skuBarcode】
-        new_worksheet1 = new_workbook.get_sheet(13)
-        new_worksheet1.write(length, 5, skuName)
-        new_worksheet1.write(length, 7, qty)
-        new_worksheet1.write(length, 8, taskNo)
-        new_worksheet1.write(length, 10, consignmentNo)
-        new_worksheet1.write(length, 11, skuId)
-        new_worksheet1.write(length, 12, skuCode)
-        new_worksheet1.write(length, 13, putawayQty)
+        new_worksheet.write(length, 7, orderNumber)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')

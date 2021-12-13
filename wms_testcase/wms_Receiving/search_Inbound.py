@@ -70,7 +70,6 @@ class WSearchInbound(unittest.TestCase):
         orderType = str(int(orderType1))
         timeRangeType = str(int(timeRangeType1))
         datas = '{' + '"keyType":' + keyType + ',' + '"keyWords":' + '[' + '"' + keyWords + '"' + '],' + '"statusList":' + '[' + statusList + '],' + '"orderType":' + '"' + orderType + '",' + '"customerCode":' + '"' + customerCode + '",' + '"boxBarcode":' + '"' + boxBarcode + '",' + '"transportType":' + '"' + transportType + '",' + '"timeRangeType":' + timeRangeType + ',' + '"timeRange":' + '[' + timeRange + '],' + '"timeRangeFrom":' + '"' + timeRangeFrom + '",' + '"timeRangeTo":' + '"' + timeRangeTo + '"' + '}'
-
         """
             4.将参数case_name、url、data、message、res、text传入封装输出日志的方法中
             """

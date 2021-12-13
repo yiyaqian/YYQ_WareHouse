@@ -19,9 +19,10 @@ from oms_testcase.oms_Inbound_Management.getdetail_Inbound import GetDetailInbou
 
 from wms_testcase.wms_login.wuser_login import WuserLogin
 from wms_testcase.wms_Receiving.search_Inbound import WSearchInbound
-from wms_testcase.wms_Receiving.getdetail_Inbound_sku1 import GetDetailInboundSku
+from wms_testcase.wms_Receiving.getdetail_Inbound_sku1 import GetDetailInboundBox
 from wms_testcase.wms_Receiving.confirm_receipt import ConfirmReceipt
 from oms_testcase.oms_outbound_Management.add_outbound import AddOutbound
+from oms_testcase.oms_outbound_Management.search_outbound import SearchOutbound
 str.encode("gbk")
 
 logging.info("====================== 测试开始 =======================")
@@ -41,13 +42,15 @@ suite = unittest.TestSuite()
 # suite.addTest(unittest.makeSuite(AddInbound))
 # suite.addTest(unittest.makeSuite(SearchInbound))
 # suite.addTest(unittest.makeSuite(ReviewAndVoid_Inbound))
-suite.addTest(unittest.makeSuite(GetDetailInbound))
+# suite.addTest(unittest.makeSuite(GetDetailInbound))
 # suite.addTest(unittest.makeSuite(WuserLogin))
 # suite.addTest(unittest.makeSuite(WSearchInbound))
-# suite.addTest(unittest.makeSuite(GetDetailInboundSku))
+# suite.addTest(unittest.makeSuite(GetDetailInboundBox))
 # suite.addTest(unittest.makeSuite(ConfirmReceipt))
 
 # suite.addTest(unittest.makeSuite(AddOutbound))
+suite.addTest(unittest.makeSuite(SearchOutbound))
+
 
 # 以二进制格式打开../log/report.html文件，如果文件../log/report.html存在则将其覆盖。如果不存在则创建新文件
 with open("../report/report.html", 'wb') as f:  # 改为with open 格式

@@ -17,7 +17,7 @@ result = get_data('../xls/测试用例数据2.xls', 6)
 
 
 @ddt.ddt
-class GetDetailInboundSku(unittest.TestCase):
+class GetDetailInboundBox(unittest.TestCase):
 
     def getdetail_Inbound_sku(self, case_name, IDX, url, methond, content_type, taskNo, loading, message,
                               consignmentNo):
@@ -42,7 +42,19 @@ class GetDetailInboundSku(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        # written_skuIds(int(IDX),result['result']['records'][t]['skuId'])
+        total = re['result']['total']
+        logging.info(total)
+
+        # # 为收货和上架接口传参数
+        for t in (0, total - 1):
+            logging.info(int(IDX) + t)
+            # skuId:skuId
+            WrittenToken.written_skuId(int(IDX) + t, re['result']['records'][t]['skuName'],
+                                       taskNo, consignmentNo, re['result']['records'][t]['skuId'],
+                                       re['result']['records'][t]['skuCode'],
+                                       re['result']['records'][t]['planQty'],
+                                       re['result']['records'][t]['boxBarcode'])
+            logging.info(re['result']['records'][t]['skuCode'])
         return re
 
     # WMS获取入库单SKU信息
@@ -53,16 +65,6 @@ class GetDetailInboundSku(unittest.TestCase):
         result = self.getdetail_Inbound_sku(case_name, IDX, url, methond, content_type, taskNo, loading, message,
                                             consignmentNo)
         datas = '{' + '"taskNo":' + '"' + taskNo + '",' + '"loading":' + loading + '}'
-        total = result['result']['total']
-        logging.info(total)
-        for t in (0, total - 1):
-            logging.info(int(IDX)+t)
-            # skuId:skuId
-            WrittenToken.written_skuId(int(IDX)+t, result['result']['records'][t]['skuName'],
-                                       result['result']['records'][t]['planBoxQty'], taskNo, consignmentNo,
-                                       result['result']['records'][t]['skuId'],
-                                       result['result']['records'][t]['skuCode'],
-                                       result['result']['records'][t]['planBoxQty'])
 
         "5.将参数case_name、url、data、message、res、text传入封装输出日志的方法中"
         log_case_info(case_name, url, datas, message, result)
