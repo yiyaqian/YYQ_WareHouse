@@ -246,7 +246,7 @@ class WrittenToken:
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
-    # 从WMS获取入库单SKU信息接口【wms_Receiving.getdetail_Inbound_sku.py】获取到skuId,写入确认收货sheet表【表字段：skuBarcode】
+    # 从查询出库单接口【search_outbound.py】获取到出库订单参考号，写入获取出库单详情sheet表和审核和取消出库单、WMS查询出库单【表字段：orderNumber、orderNumber、keyWords】
     @staticmethod
     def written_orderNumber(length, orderNumber):
         # # 加载已存在的xls
@@ -254,9 +254,54 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # 获取到确认收货表，skuId【表字段：skuBarcode】
-        new_worksheet = new_workbook.get_sheet(8)
-        new_worksheet.write(length, 7, orderNumber)
+        # 获取到获取出库单详情表【表字段：orderNumber】
+        new_worksheet = new_workbook.get_sheet(15)
+        new_worksheet.write(length, 4, orderNumber)
+
+        # 获取到审核和取消出库单【表字段：orderNumber】
+        new_worksheet1 = new_workbook.get_sheet(16)
+        new_worksheet1.write(length, 4, orderNumber)
+
+        # 获取到WMS查询出库单【表字段：keyWords】
+        new_worksheet2 = new_workbook.get_sheet(17)
+        new_worksheet2.write(length, 7, orderNumber)
+
+        os.remove('../xls/测试用例数据2.xls')
+        new_workbook.save('../xls/测试用例数据2.xls')
+
+    # 从WMS查询出库单接口【wsearch_outbound.py】中获取到出库单号【consignmentNo】和订单类型【pickType】，写入18-拣货单生成查询sheet表、20-拣货单管理查询sheet表中【表字段：consignmentNo、pickType】
+    @staticmethod
+    def written_OutNoAndPickType(length, consignmentNo, pickType):
+        # # 加载已存在的xls
+        old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
+        # # 将已存在的excel拷贝进新的excl
+        new_workbook = copy(old_workbook)
+
+        # 获取到18-拣货单生成查询sheet表【表字段：consignmentNo、pickType】
+        new_worksheet = new_workbook.get_sheet(18)
+        new_worksheet.write(length, 8, pickType)
+        new_worksheet.write(length, 11, consignmentNo)
+
+        # 获取到20-拣货单管理查询sheet表【表字段：consignmentNo、pickType】
+        new_worksheet1 = new_workbook.get_sheet(20)
+        new_worksheet1.write(length, 7, consignmentNo)
+        new_worksheet1.write(length, 11, pickType)
+
+        os.remove('../xls/测试用例数据2.xls')
+        new_workbook.save('../xls/测试用例数据2.xls')
+
+    # 从拣货单生成查询接口【search_CreatePick.py】中获取到taskId和订单类型【pickType】，写入taskId sheet表中【表字段：picker、pickType】
+    @staticmethod
+    def written_TaskIdAndPickType(length, taskId, pickType):
+        # # 加载已存在的xls
+        old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
+        # # 将已存在的excel拷贝进新的excl
+        new_workbook = copy(old_workbook)
+
+        # 获取到18-拣货单生成查询sheet表【表字段：consignmentNo、pickType】
+        new_worksheet = new_workbook.get_sheet(19)
+        new_worksheet.write(length, 5, taskId)
+        new_worksheet.write(length, 6, pickType)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')

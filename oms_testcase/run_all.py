@@ -4,25 +4,13 @@
 import unittest
 from log.config import *
 from HTMLTestRunner.HTMLTestRunner import HTMLTestRunner
-from oms_testcase.oms_login.user_login import UserLogin
-from oms_testcase.oms_sku.add_sku1 import AddSku
-from oms_testcase.oms_sku.search_sku import SearchSku
-from oms_testcase.oms_sku.review_and_void_sku import ReviewAndVoid_sku
-from oms_testcase.oms_declare.add_declarce1 import AddDeclarce
-from oms_testcase.oms_declare.search_declare import SearchDeclare
-from oms_testcase.oms_declare.getdetail_declare import GetDetailDeclare
-from oms_testcase.oms_declare.review_and_void_declarce import ReviewAndVoid_Declarce
-from oms_testcase.oms_Inbound_Management.add_Inbound import AddInbound
-from oms_testcase.oms_Inbound_Management.search_Inbound import SearchInbound
-from oms_testcase.oms_Inbound_Management.review_and_void_Inbound import ReviewAndVoid_Inbound
-from oms_testcase.oms_Inbound_Management.getdetail_Inbound import GetDetailInbound
 
-from wms_testcase.wms_login.wuser_login import WuserLogin
-from wms_testcase.wms_Receiving.search_Inbound import WSearchInbound
-from wms_testcase.wms_Receiving.getdetail_Inbound_sku1 import GetDetailInboundBox
-from wms_testcase.wms_Receiving.confirm_receipt import ConfirmReceipt
-from oms_testcase.oms_outbound_Management.add_outbound import AddOutbound
-from oms_testcase.oms_outbound_Management.search_outbound import SearchOutbound
+from oms_testcase.oms_login.user_login import UserLogin
+from oms_testcase.oms_outbound_Management.getdetail_outbound import GetDetailOutBound
+from wms_testcase.wms_outbound_Management.wsearch_outbound import WSearchOutbound
+from wms_testcase.wms_PickList.search_CreatePick import SearchCreatePick
+from wms_testcase.wms_PickList.createPick import CreatePick
+from wms_testcase.wms_PickList.search_Pick import Search_Pick
 str.encode("gbk")
 
 logging.info("====================== 测试开始 =======================")
@@ -38,6 +26,10 @@ suite = unittest.TestSuite()
 # suite.addTest(unittest.makeSuite(SearchDeclare))
 # suite.addTest(unittest.makeSuite(GetDetailDeclare))
 # suite.addTest(unittest.makeSuite(ReviewAndVoid_Declarce))
+# suite.addTest(unittest.makeSuite(AddOutbound))
+# suite.addTest(unittest.makeSuite(SearchOutbound))
+# suite.addTest(unittest.makeSuite(GetDetailOutBound))
+
 
 # suite.addTest(unittest.makeSuite(AddInbound))
 # suite.addTest(unittest.makeSuite(SearchInbound))
@@ -47,9 +39,10 @@ suite = unittest.TestSuite()
 # suite.addTest(unittest.makeSuite(WSearchInbound))
 # suite.addTest(unittest.makeSuite(GetDetailInboundBox))
 # suite.addTest(unittest.makeSuite(ConfirmReceipt))
-
-# suite.addTest(unittest.makeSuite(AddOutbound))
-suite.addTest(unittest.makeSuite(SearchOutbound))
+# suite.addTest(unittest.makeSuite(WSearchOutbound))
+# suite.addTest(unittest.makeSuite(SearchCreatePick))
+# suite.addTest(unittest.makeSuite(CreatePick))
+suite.addTest(unittest.makeSuite(Search_Pick))
 
 
 # 以二进制格式打开../log/report.html文件，如果文件../log/report.html存在则将其覆盖。如果不存在则创建新文件
