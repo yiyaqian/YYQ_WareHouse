@@ -46,6 +46,11 @@ class Search_Pick(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
+        if re['result']['total'] > 0:
+            pickNo = re['result']['records'][0]['pickNo']
+            ids = re['result']['records'][0]['id']
+            total = re['result']['total']
+            WrittenToken.written_PickAndId(int(IDX), pickNo, ids, total)
         return re
 
     # WMS获取入库单SKU信息

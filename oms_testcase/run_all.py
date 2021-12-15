@@ -11,6 +11,12 @@ from wms_testcase.wms_outbound_Management.wsearch_outbound import WSearchOutboun
 from wms_testcase.wms_PickList.search_CreatePick import SearchCreatePick
 from wms_testcase.wms_PickList.createPick import CreatePick
 from wms_testcase.wms_PickList.search_Pick import Search_Pick
+from wms_testcase.wms_PickList.print_Pick import Print_Pick
+from wms_testcase.wms_invoice.search_invoicePL import Search_InvoicePL
+from wms_testcase.wms_invoice.invoice import Invoice
+from wms_testcase.wms_pack.getPackNo import GetPackNo
+from wms_testcase.wms_pack.search_packPL import Search_PackPL
+
 str.encode("gbk")
 
 logging.info("====================== 测试开始 =======================")
@@ -42,8 +48,12 @@ suite = unittest.TestSuite()
 # suite.addTest(unittest.makeSuite(WSearchOutbound))
 # suite.addTest(unittest.makeSuite(SearchCreatePick))
 # suite.addTest(unittest.makeSuite(CreatePick))
-suite.addTest(unittest.makeSuite(Search_Pick))
-
+# suite.addTest(unittest.makeSuite(Search_Pick))
+# suite.addTest(unittest.makeSuite(Print_Pick))
+# suite.addTest(unittest.makeSuite(Search_InvoicePL))
+# suite.addTest(unittest.makeSuite(Invoice))
+# suite.addTest(unittest.makeSuite(GetPackNo))
+suite.addTest(unittest.makeSuite(Search_PackPL))
 
 # 以二进制格式打开../log/report.html文件，如果文件../log/report.html存在则将其覆盖。如果不存在则创建新文件
 with open("../report/report.html", 'wb') as f:  # 改为with open 格式
