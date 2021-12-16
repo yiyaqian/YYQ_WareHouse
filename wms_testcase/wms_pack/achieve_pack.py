@@ -13,13 +13,13 @@ from lib.general_request import General_request
 import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 23)
+result = get_data('../xls/测试用例数据2.xls', 28)
 
 
 @ddt.ddt
-class Search_InvoicePL(unittest.TestCase):
+class Achieve_Pack(unittest.TestCase):
 
-    def search_invoicePL(self, case_name, IDX, url, methond, content_type, inputNo, tableNo, wallNo, message):
+    def achieve_Pack(self, case_name, IDX, url, methond, content_type, packNo, inputNo, consignmentNo, packageNo, message):
         self.req = General_request()
         session = WrittenToken.read_WMStoken()  # 调用获取token的方法
         header = {
@@ -29,7 +29,7 @@ class Search_InvoicePL(unittest.TestCase):
         }
 
         # inputNo:拣货单号、tableNo：配货墙编号、wallNo：操作台编号
-        datas = '{' + '"inputNo":"' + inputNo + '",' + '"tableNo":"' + tableNo + '",' + '"wallNo":"' + wallNo + '"}'
+        datas = '{' + '"packNo":"' + packNo + '",' + '"inputNo":"' + inputNo + '",' + '"consignmentNo":"' + consignmentNo + '",'+'"packageNo":"'+packageNo+'"}'
         data = json.loads(datas)
         if methond == 'POST':
             """
@@ -43,22 +43,15 @@ class Search_InvoicePL(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        detailDTOList = str(re['result']['detailDTOList'][0]['info'])
-        tatal = detailDTOList.split('},')
-        logging.info(len(tatal))
-        if 'None' not in re['result'] and message in re['message']:
-            for i in range(0, len(tatal)):
-                jobNo = re['result']['detailDTOList'][0]['jobNo']
-                skuId = re['result']['detailDTOList'][0]['info'][i]['skuId']
-                WrittenToken.written_jobNoAndskuId(int(IDX)+i, jobNo, skuId)
+
         return re
 
     # WMS获取入库单SKU信息
     @ddt.data(*result)
     @ddt.unpack
-    def test_search_invoicePL(self, case_name, IDX, url, methond, content_type, inputNo, tableNo, wallNo, message):
-        result = self.search_invoicePL(case_name, IDX, url, methond, content_type, inputNo, tableNo, wallNo, message)
-        datas = '{' + '"inputNo":"' + inputNo + '",' + '"tableNo":"' + tableNo + '",' + '"wallNo":"' + wallNo + '"}'
+    def test_achieve_Pack(self, case_name, IDX, url, methond, content_type, packNo, inputNo, consignmentNo, packageNo, message):
+        result = self.achieve_Pack(case_name, IDX, url, methond, content_type, packNo, inputNo, consignmentNo, packageNo, message)
+        datas = '{' + '"packNo":"' + packNo + '",' + '"inputNo":"' + inputNo + '",' + '"consignmentNo":"' + consignmentNo + '",' + '"packageNo":"' + packageNo + '"}'
         "5.将参数case_name、url、data、message、res、text传入封装输出日志的方法中"
         log_case_info(case_name, url, datas, message, result)
         "6.设置断言，判断是否真的登录成功了"

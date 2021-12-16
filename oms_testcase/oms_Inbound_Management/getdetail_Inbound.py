@@ -12,7 +12,7 @@ from lib.general_request import General_request
 import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 4)
+result = get_data('../xls/测试用例数据2.xls', 8)
 
 
 @ddt.ddt
@@ -43,8 +43,9 @@ class GetDetailInbound(unittest.TestCase):
         skuQty = re['result']['skuList'][0]['planQty']
         # boxBarcode：箱序号
         # 将返回的入库单号传入到方法written_boxBarcode中
-        WrittenToken.written_boxBarcode(int(IDX), boxBarcode)
-        if message in re['message']:
+
+        if message in re['message'] or '操作成功！' in re['message']:
+            WrittenToken.written_boxBarcode(int(IDX), boxBarcode)
             # # 将返回的skuQty传入到方法written_skuQty中
             WrittenToken.written_skuQty(int(IDX), skuQty)
         return re

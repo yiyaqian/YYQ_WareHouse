@@ -9,7 +9,7 @@ from log.case_log import log_case_info
 from lib.general_request import General_request
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 2)
+result = get_data('../xls/测试用例数据2.xls', 7)
 
 
 @ddt.ddt

@@ -12,7 +12,7 @@ from excel.written_token import WrittenToken
 from lib.general_request import General_request
 from log.case_log import log_case_info
 
-result = get_data('../xls/测试用例数据.xls', 5)
+result = get_data('../xls/测试用例数据.xls', 3)
 logging.info(result)
 
 
@@ -64,7 +64,7 @@ class AddInbound(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        if message in re['message']:
+        if message in re['message'] or '操作成功！' in re['message']:
             # refNo：入库单客户参考号
             WrittenToken.written_refNo(int(IDX), refNo)
 

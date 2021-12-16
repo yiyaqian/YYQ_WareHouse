@@ -40,11 +40,10 @@ class SearchSku(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        logging.info(re)
-        ids = re['result']['records'][0]['id']
-
-        # # 4.调用写入审核和作废SKU的sheet表中的id方法
-        WrittenToken.written_id(int(IDX), ids)
+        if 'None' != re['result']:
+            ids = re['result']['records'][0]['id']
+            # 4.调用写入审核和作废SKU的sheet表中的id方法
+            WrittenToken.written_id(int(IDX), ids)
         return re
 
     @ddt.data(*result)

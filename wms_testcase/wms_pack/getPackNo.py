@@ -44,12 +44,10 @@ class GetPackNo(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        totalPcs = re['totalPcs']
-        # logging.info(totalOrder)
-        if totalPcs > 0:
+        if 'None' != re['result']:
+            logging.info(re['result'])
             packNo = re['result']['packNo']
-            pickType = re['pickType']
-            WrittenToken.written_packNo(int(IDX), packNo, pickType, totalPcs)
+            WrittenToken.written_packNo(int(IDX), packNo)
 
         return re
 

@@ -50,7 +50,7 @@ class Search_Pick(unittest.TestCase):
             pickNo = re['result']['records'][0]['pickNo']
             ids = re['result']['records'][0]['id']
             total = re['result']['total']
-            WrittenToken.written_PickAndId(int(IDX), pickNo, ids, total)
+            WrittenToken.written_PickAndId(int(IDX), pickNo, ids)
         return re
 
     # WMS获取入库单SKU信息

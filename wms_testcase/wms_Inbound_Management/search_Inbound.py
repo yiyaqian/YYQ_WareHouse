@@ -13,7 +13,7 @@ from lib.general_request import General_request
 import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 5)
+result = get_data('../xls/测试用例数据2.xls', 9)
 
 
 @ddt.ddt
@@ -49,8 +49,9 @@ class WSearchInbound(unittest.TestCase):
              """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-
-        WrittenToken.written_taskNo(int(IDX), re['result']['records'][0]['taskNo'], keyWords)
+        if 'None' != re['result']:
+            logging.info('欢迎')
+            WrittenToken.written_taskNo(int(IDX), re['result']['records'][0]['taskNo'], keyWords)
         return re
 
     @ddt.data(*result)

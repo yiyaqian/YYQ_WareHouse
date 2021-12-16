@@ -1,16 +1,12 @@
 """
-配货页查询拣货单接口
+配货接口
 """
-import logging
 import unittest
-
 import ddt
-
 from excel.read_excel import *
 import json
 from log.case_log import log_case_info
 from lib.general_request import General_request
-import warnings
 from excel.written_token import WrittenToken
 
 result = get_data('../xls/测试用例数据2.xls', 24)
@@ -43,10 +39,6 @@ class Invoice(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-
-        # if re['result']['totalOrder'] > 0:
-        #     jobNo = re['result']['detailDTOList'][0]['jobNo']
-        #     WrittenToken.written_PickAndId(int(IDX), jobNo)
         return re
 
     # WMS获取入库单SKU信息

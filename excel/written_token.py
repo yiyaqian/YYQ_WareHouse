@@ -47,7 +47,7 @@ class WrittenToken:
             token1 = case_data1.get('x-access-token')
         return token1
 
-    # 将skucode:sku代码、businessType：业务类型 写入查询SKU的excel【字段：keyWords、businessType】中
+    # 从新增sku接口获取到sku编码【keyWords】和业务类型【businessType】
     # 供OMS查询SKU接口【search_sku.py】
     @staticmethod
     def written_SKU(length, keyWords, businessType):
@@ -55,7 +55,7 @@ class WrittenToken:
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         "4.2复制一份"
         new_workbook = copy(old_workbook)
-        "4.3获取到复制的xls中第一个sheet表"
+        "4.3获取到复制的xls中0-查询SKU sheet表"
         new_worksheet = new_workbook.get_sheet(0)
         "4.4往复制的xls第一个表中第i+1行的第5列写入查询条件SKU代码"
         new_worksheet.write(length, 5, keyWords)
@@ -87,7 +87,7 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
         # 获取sheet
-        new_worksheet = new_workbook.get_sheet(10)
+        new_worksheet = new_workbook.get_sheet(3)
         new_worksheet.write(length, 6, brand)
         new_worksheet.write(length, 7, skuCode)
         os.remove('../xls/测试用例数据2.xls')
@@ -101,7 +101,7 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
         # 获取sheet
-        new_worksheet = new_workbook.get_sheet(11)
+        new_worksheet = new_workbook.get_sheet(4)
         new_worksheet.write(length, 4, declareGoodsCode)
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -114,7 +114,7 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
         # 审核和作废申报产品sheet表
-        new_worksheet = new_workbook.get_sheet(12)
+        new_worksheet = new_workbook.get_sheet(5)
         new_worksheet.write(length, 5, ids)
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -127,7 +127,7 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
         # 获取sheet
-        new_worksheet = new_workbook.get_sheet(3)
+        new_worksheet = new_workbook.get_sheet(6)
         new_worksheet.write(length, 10, refNo)
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -142,31 +142,37 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # 获取审核和取消入库单表，并写入consignmentNo【表字段consignmentNos】
-        new_worksheet = new_workbook.get_sheet(2)
+        # 获取7-审核和取消入库单表，并写入consignmentNo【表字段consignmentNos】
+        new_worksheet = new_workbook.get_sheet(7)
         new_worksheet.write(length, 5, consignmentNo)
 
-        # 获取入库单详情表，并写入consignmentNo【表字段orderNo】
-        new_worksheet1 = new_workbook.get_sheet(4)
+        # 获取8-入库单详情表，并写入consignmentNo【表字段orderNo】
+        new_worksheet1 = new_workbook.get_sheet(8)
         new_worksheet1.write(length, 4, consignmentNo)
 
         # 获取WSM查询入库单表，并写入consignmentNo【表字段keyWords】
-        new_worksheet2 = new_workbook.get_sheet(5)
-        new_worksheet2.write(length, 4, consignmentNo)
+        new_worksheet2 = new_workbook.get_sheet(9)
+        new_worksheet2.write(length, 6, consignmentNo)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
-    # 从获取入库单详情接口【getdetail_Inbound.py】获取到skuQty，写入确认收货sheet表【表字段normalQty】
+    # 从WMS查询入库单接口【wms_Receiving.search_Inbound.py】获取到taskNo,写入确认收货sheet表【表字段名:taskNo】中
     @staticmethod
-    def written_skuQty(length, skuQty):
+    def written_taskNo(length, taskNo, consignmentNo):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
-        # 获取到确认收货表，taskNo【表字段：taskNo】
-        new_worksheet = new_workbook.get_sheet(8)
-        new_worksheet.write(length, 7, skuQty)
+
+        # 获取到10-WMS获取入库单SKU信息表，taskNo【表字段：taskNo】
+        new_worksheet = new_workbook.get_sheet(10)
+        new_worksheet.write(length, 5, taskNo)
+        new_worksheet.write(length, 8, consignmentNo)
+
+        # # # 获取11-确认收货表，写入【表字段：taskNo、consignmentNo】
+        # new_worksheet1 = new_workbook.get_sheet(11)
+        # new_worksheet1.write(length, 5, taskNo)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -180,33 +186,27 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # # 获取到收货-按箱表，写入boxBarcode【表字段：boxBarcode】
-        # new_worksheet1 = new_workbook.get_sheet(6)
-        # new_worksheet1.write(length, 5, boxBarcode)
-
-        # 获取到确认收货表，写入boxBarcode【表字段：boxBarcode】
-        new_worksheet = new_workbook.get_sheet(8)
-        new_worksheet.write(length, 5, boxBarcode)
+        # # 获取到确认收货表，写入boxBarcode【表字段：boxBarcode】
+        # new_worksheet = new_workbook.get_sheet(11)
+        # new_worksheet.write(length, 6, boxBarcode)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
-    # 从WMS查询入库单接口【wms_Receiving.search_Inbound.py】获取到taskNo,写入确认收货sheet表【表字段名:taskNo】中
+    # 从获取入库单详情接口【getdetail_Inbound.py】获取到skuQty，写入确认收货sheet表【表字段normalQty】
     @staticmethod
-    def written_taskNo(length, taskNo, consignmentNo=None):
+    def written_skuQty(length, skuQty):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # # 获取到WMS获取入库单sku信息表，写入【表字段：taskNo、consignmentNo】
-        new_worksheet1 = new_workbook.get_sheet(6)
-        new_worksheet1.write(length, 5, taskNo)
-        new_worksheet1.write(length, 8, consignmentNo)
+        # 获取到确认收货表，写入boxBarcode【表字段：normalQty】
+        new_worksheet = new_workbook.get_sheet(11)
+        new_worksheet.write(length, 8, skuQty)
 
-        # 获取到确认收货表，taskNo【表字段：taskNo】
-        new_worksheet = new_workbook.get_sheet(8)
-        new_worksheet.write(length, 5, taskNo)
+        os.remove('../xls/测试用例数据2.xls')
+        new_workbook.save('../xls/测试用例数据2.xls')
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -220,14 +220,14 @@ class WrittenToken:
         new_workbook = copy(old_workbook)
 
         # 获取到确认收货表【表字段：skuBarcode】
-        new_worksheet = new_workbook.get_sheet(8)
+        new_worksheet = new_workbook.get_sheet(11)
         new_worksheet.write(length, 5, taskNo)
         new_worksheet.write(length, 6, boxBarcode)
         new_worksheet.write(length, 7, skuId)
         new_worksheet.write(length, 8, planQty)
 
         # 获取到上架表【表字段：skuBarcode】
-        new_worksheet1 = new_workbook.get_sheet(13)
+        new_worksheet1 = new_workbook.get_sheet(12)
         new_worksheet1.write(length, 5, skuName)
         new_worksheet1.write(length, 7, planQty)
         new_worksheet1.write(length, 8, taskNo)
@@ -331,12 +331,32 @@ class WrittenToken:
         new_worksheet3 = new_workbook.get_sheet(26)
         new_worksheet3.write(length, 6, pickNo)
 
+        # 获取到29-拣货单管理页获取订单信息sheet表【表字段：inputNo】
+        new_worksheet4 = new_workbook.get_sheet(29)
+        new_worksheet4.write(length, 5, pickNo)
+
+        os.remove('../xls/测试用例数据2.xls')
+        new_workbook.save('../xls/测试用例数据2.xls')
+
+    @staticmethod
+    def written_CNo(length, consignmentNo, packNo):
+        # # 加载已存在的xls
+        old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
+        # # 将已存在的excel拷贝进新的excl
+        new_workbook = copy(old_workbook)
+
+        # 获取到24-配货sheet表【表字段：jobNo、inputNo】
+        new_worksheet = new_workbook.get_sheet(28)
+        new_worksheet.write(length, 7, consignmentNo)
+        new_worksheet.write(length, 6, consignmentNo)
+        new_worksheet.write(length, 5, packNo)
+
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
     # 从配货页查询拣货单接口【search_invoicePL.py】获取到jobNo和skuId,写入24-配货sheet表中【表字段、jobNo、inoutNo】
     @staticmethod
-    def written_jobNoAndskuId(length, jobNo, skuId, consignmentNo):
+    def written_jobNoAndskuId(length, jobNo, skuId):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
@@ -347,27 +367,19 @@ class WrittenToken:
         new_worksheet.write(length, 8, jobNo)
         new_worksheet.write(length, 5, skuId)
 
-        # 获取到28-完成打包sheet表【表字段：inputNo、consignmentNo】
-        new_worksheet1 = new_workbook.get_sheet(28)
-        new_worksheet1.write(length, 8, consignmentNo)
-        new_worksheet1.write(length, 9, consignmentNo)
-
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
-
     @staticmethod
-    def written_packNo(length, packNo, pickType,totalPcs):
+    def written_packNo(length, packNo):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # 获取到21-打印拣货单sheet表【表字段：consignmentNo、pickType】
-        new_worksheet = new_workbook.get_sheet(27)
-        new_worksheet.write(length, 5, packNo)
-        new_worksheet.write(length, 6, pickType)
-        new_worksheet.write(length, 7, totalPcs)
+        # 获取到29-拣货单管理页获取订单信息表【表字段：consignmentNo、pickType】
+        new_worksheet = new_workbook.get_sheet(29)
+        new_worksheet.write(length, 6, packNo)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')

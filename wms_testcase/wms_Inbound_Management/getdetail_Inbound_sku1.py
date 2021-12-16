@@ -13,11 +13,11 @@ from lib.general_request import General_request
 import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 6)
+result = get_data('../xls/测试用例数据2.xls', 10)
 
 
 @ddt.ddt
-class GetDetailInboundBox(unittest.TestCase):
+class GetDetailInboundSKU(unittest.TestCase):
 
     def getdetail_Inbound_sku(self, case_name, IDX, url, methond, content_type, taskNo, loading, message,
                               consignmentNo):
@@ -42,19 +42,25 @@ class GetDetailInboundBox(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        total = re['result']['total']
-        logging.info(total)
 
-        # # 为收货和上架接口传参数
-        for t in (0, total - 1):
-            logging.info(int(IDX) + t)
-            # skuId:skuId
-            WrittenToken.written_skuId(int(IDX) + t, re['result']['records'][t]['skuName'],
-                                       taskNo, consignmentNo, re['result']['records'][t]['skuId'],
-                                       re['result']['records'][t]['skuCode'],
-                                       re['result']['records'][t]['planQty'],
-                                       re['result']['records'][t]['boxBarcode'])
-            logging.info(re['result']['records'][t]['skuCode'])
+        if 'None' != re['result']:
+            total = re['result']['total']
+
+            logging.info(total)
+            # # 为收货和上架接口传参数
+            for t in (0, total - 1):
+                logging.info(type(re['result']['records'][t]['putawayQty']))
+                putawayQty = re['result']['records'][t]['putawayQty']
+                planQty = re['result']['records'][t]['planQty']
+                qty = planQty - putawayQty
+                logging.info(qty)
+                # skuId:skuId
+                WrittenToken.written_skuId(int(IDX) + t, re['result']['records'][t]['skuName'],
+                                           taskNo, consignmentNo, re['result']['records'][t]['skuId'],
+                                           re['result']['records'][t]['skuCode'],
+                                           qty,
+                                           re['result']['records'][t]['boxBarcode'])
+
         return re
 
     # WMS获取入库单SKU信息

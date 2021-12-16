@@ -13,7 +13,7 @@ from lib.general_request import General_request
 import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 3)
+result = get_data('../xls/测试用例数据2.xls', 6)
 
 
 @ddt.ddt
@@ -45,7 +45,7 @@ class SearchInbound(unittest.TestCase):
 
         consignmentNo = re['result']['records'][0]['consignmentNo']
 
-        if message in re['message']:
+        if 'None' != re['result']:
             # # consignmentNo：入库单号
             WrittenToken.written_consignmentNo(int(IDX), consignmentNo)
 
@@ -55,7 +55,8 @@ class SearchInbound(unittest.TestCase):
     @ddt.data(*result)
     @ddt.unpack
     def test_search_Inbound(self, case_name, IDX, url, methond, content_type, inboundType, toWarehouseCode,
-                            transportType, orderTimeRange, orderNoType, orderNos, dateType, orderTimeStart, orderTimeEnd,
+                            transportType, orderTimeRange, orderNoType, orderNos, dateType, orderTimeStart,
+                            orderTimeEnd,
                             orderTime, message):
         result = self.search_Inbound(case_name, IDX, url, methond, content_type, inboundType, toWarehouseCode,
                                      transportType, orderTimeRange, orderNoType, orderNos, dateType, orderTimeStart,

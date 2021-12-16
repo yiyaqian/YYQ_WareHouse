@@ -1,5 +1,5 @@
 """
-配货页查询拣货单接口
+收货-查询入库单信息接口
 """
 import logging
 import unittest
@@ -10,16 +10,15 @@ from excel.read_excel import *
 import json
 from log.case_log import log_case_info
 from lib.general_request import General_request
-import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 23)
+result = get_data('../xls/测试用例数据2.xls', 29)
 
 
 @ddt.ddt
-class Search_InvoicePL(unittest.TestCase):
+class GetOutBound(unittest.TestCase):
 
-    def search_invoicePL(self, case_name, IDX, url, methond, content_type, inputNo, tableNo, wallNo, message):
+    def getOutBound(self, case_name, IDX, url, methond, content_type, pickNo, packNo, message):
         self.req = General_request()
         session = WrittenToken.read_WMStoken()  # 调用获取token的方法
         header = {
@@ -27,9 +26,7 @@ class Search_InvoicePL(unittest.TestCase):
             'x-access-token': session,
             'tenant_id': '2'
         }
-
-        # inputNo:拣货单号、tableNo：配货墙编号、wallNo：操作台编号
-        datas = '{' + '"inputNo":"' + inputNo + '",' + '"tableNo":"' + tableNo + '",' + '"wallNo":"' + wallNo + '"}'
+        datas = '{' + '"pickNo":"' + pickNo + '"}'
         data = json.loads(datas)
         if methond == 'POST':
             """
@@ -43,22 +40,18 @@ class Search_InvoicePL(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        detailDTOList = str(re['result']['detailDTOList'][0]['info'])
-        tatal = detailDTOList.split('},')
-        logging.info(len(tatal))
-        if 'None' not in re['result'] and message in re['message']:
-            for i in range(0, len(tatal)):
-                jobNo = re['result']['detailDTOList'][0]['jobNo']
-                skuId = re['result']['detailDTOList'][0]['info'][i]['skuId']
-                WrittenToken.written_jobNoAndskuId(int(IDX)+i, jobNo, skuId)
+        if int(re['result']['total']) > 0:
+            for i in range(0, int(re['result']['total'])):
+                WrittenToken.written_CNo(int(IDX) + i, re['result']['records'][i]['consignmentNo'], packNo)
+
         return re
 
     # WMS获取入库单SKU信息
     @ddt.data(*result)
     @ddt.unpack
-    def test_search_invoicePL(self, case_name, IDX, url, methond, content_type, inputNo, tableNo, wallNo, message):
-        result = self.search_invoicePL(case_name, IDX, url, methond, content_type, inputNo, tableNo, wallNo, message)
-        datas = '{' + '"inputNo":"' + inputNo + '",' + '"tableNo":"' + tableNo + '",' + '"wallNo":"' + wallNo + '"}'
+    def test_getOutBound(self, case_name, IDX, url, methond, content_type, pickNo, packNo, message):
+        result = self.getOutBound(case_name, IDX, url, methond, content_type, pickNo, packNo, message)
+        datas = '{' + '"pickNo":"' + pickNo + '"}'
         "5.将参数case_name、url、data、message、res、text传入封装输出日志的方法中"
         log_case_info(case_name, url, datas, message, result)
         "6.设置断言，判断是否真的登录成功了"

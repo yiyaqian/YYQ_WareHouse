@@ -13,7 +13,7 @@ from lib.general_request import General_request
 import warnings
 from excel.written_token import WrittenToken
 
-result = get_data('../xls/测试用例数据2.xls', 10)
+result = get_data('../xls/测试用例数据2.xls', 3)
 
 
 @ddt.ddt
@@ -43,7 +43,7 @@ class SearchDeclare(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        if message in re['message']:
+        if 'None' != re['message']:
             ids = re['result']['records'][0]['id']
             WrittenToken.written_ids(int(IDX), ids)
 
