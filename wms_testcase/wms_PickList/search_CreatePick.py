@@ -29,7 +29,7 @@ class SearchCreatePick(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         pickType = str(int(pickType1))
         changeNoStatus = str(int(changeNoStatus1))
@@ -57,9 +57,9 @@ class SearchCreatePick(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        logging.info(re['result']['total'])
-        taskId = re['result']['records'][0]['taskId']
         if re['result']['total'] > 0:
+            logging.info('info')
+            taskId = re['result']['records'][0]['taskId']
             # consignmentNo:出库单号
             WrittenToken.written_TaskIdAndPickType(int(IDX), taskId, pickType)
 

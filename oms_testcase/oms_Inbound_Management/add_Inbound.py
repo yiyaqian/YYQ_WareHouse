@@ -13,7 +13,6 @@ from lib.general_request import General_request
 from log.case_log import log_case_info
 
 result = get_data('../xls/测试用例数据.xls', 3)
-logging.info(result)
 
 
 @ddt.ddt

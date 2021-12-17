@@ -25,7 +25,7 @@ class Search_InvoicePL(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
 
         # inputNo:拣货单号、tableNo：配货墙编号、wallNo：操作台编号
@@ -43,10 +43,11 @@ class Search_InvoicePL(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        detailDTOList = str(re['result']['detailDTOList'][0]['info'])
-        tatal = detailDTOList.split('},')
-        logging.info(len(tatal))
-        if 'None' not in re['result'] and message in re['message']:
+
+        if 'None' != re['result']:
+            detailDTOList = str(re['result']['detailDTOList'][0]['info'])
+            tatal = detailDTOList.split('},')
+            logging.info(len(tatal))
             for i in range(0, len(tatal)):
                 jobNo = re['result']['detailDTOList'][0]['jobNo']
                 skuId = re['result']['detailDTOList'][0]['info'][i]['skuId']

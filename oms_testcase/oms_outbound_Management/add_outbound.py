@@ -4,16 +4,13 @@
 import json
 import logging
 import unittest
-
 import ddt
-
 from excel.read_excel import *
 from excel.written_token import WrittenToken
 from lib.general_request import General_request
-import warnings
 from log.case_log import log_case_info
 
-result = get_data('../xls/测试用例数据.xls', 7)
+result = get_data('../xls/测试用例数据.xls', 5)
 
 
 @ddt.ddt
@@ -57,9 +54,9 @@ class AddOutbound(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        if self.assertEqual(message, result['message']):
+        if message in re['message']:
             # refNo:参考号
-            WrittenToken.written_orderNumber(int(IDX), refNo)
+            WrittenToken.written_out_refo(int(IDX), refNo)
 
         return re
 

@@ -16,7 +16,7 @@ class WrittenToken:
         # 将已存在的excel拷贝进新的excle
         new_workbook = copy(old_workbook)
         # 获取sheet
-        new_worksheet = new_workbook.get_sheet(9)
+        new_worksheet = new_workbook.get_sheet(13)
         new_worksheet.write(6, 4, token)
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -38,7 +38,7 @@ class WrittenToken:
     @staticmethod
     def read_WMStoken():
         # 打开xls
-        data_values = excel_to_list("../xls/测试用例数据.xls", "WMS登录")
+        data_values = excel_to_list("../xls/测试用例数据.xls", "4-WMS登录")
         case_names = data_values[5].get('场景')
         "通过场景名称:casenames   在data_values[该表中所有用例数据]查找到该用例数据"
         case_data1 = get_test_data(data_values, case_names)
@@ -246,6 +246,19 @@ class WrittenToken:
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
 
+    @staticmethod
+    def written_out_refo(length, out_refo):
+        # # 加载已存在的xls
+        old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
+        # # 将已存在的excel拷贝进新的excl
+        new_workbook = copy(old_workbook)
+        # 获取到获取出库单详情表【表字段：orderNumber】
+        new_worksheet = new_workbook.get_sheet(14)
+        new_worksheet.write(length, 12, out_refo)
+
+        os.remove('../xls/测试用例数据2.xls')
+        new_workbook.save('../xls/测试用例数据2.xls')
+
     # 从查询出库单接口【search_outbound.py】获取到出库订单参考号，写入获取出库单详情sheet表和审核和取消出库单、WMS查询出库单【表字段：orderNumber、orderNumber、keyWords】
     @staticmethod
     def written_orderNumber(length, orderNumber):
@@ -256,11 +269,11 @@ class WrittenToken:
 
         # 获取到获取出库单详情表【表字段：orderNumber】
         new_worksheet = new_workbook.get_sheet(15)
-        new_worksheet.write(length, 4, orderNumber)
+        new_worksheet.write(length, 5, orderNumber)
 
         # 获取到审核和取消出库单【表字段：orderNumber】
         new_worksheet1 = new_workbook.get_sheet(16)
-        new_worksheet1.write(length, 4, orderNumber)
+        new_worksheet1.write(length, 5, orderNumber)
 
         # 获取到WMS查询出库单【表字段：keyWords】
         new_worksheet2 = new_workbook.get_sheet(17)
@@ -298,10 +311,10 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # 获取到18-拣货单生成查询sheet表【表字段：consignmentNo、pickType】
+        # 获取到19-生成拣货单sheet表【表字段：consignmentNo、pickType】
         new_worksheet = new_workbook.get_sheet(19)
         new_worksheet.write(length, 5, taskId)
-        new_worksheet.write(length, 6, pickType)
+        new_worksheet.write(length, 7, pickType)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -331,9 +344,13 @@ class WrittenToken:
         new_worksheet3 = new_workbook.get_sheet(26)
         new_worksheet3.write(length, 6, pickNo)
 
-        # 获取到29-拣货单管理页获取订单信息sheet表【表字段：inputNo】
+        # 获取到29-拣货单管理页获取订单信息sheet表【表字段：pickNo】
         new_worksheet4 = new_workbook.get_sheet(29)
         new_worksheet4.write(length, 5, pickNo)
+
+        # 获取到29-拣货单管理页获取订单信息sheet表【表字段：pickNo】
+        new_worksheet4 = new_workbook.get_sheet(28)
+        new_worksheet4.write(length, 6, pickNo)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -345,11 +362,15 @@ class WrittenToken:
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
-        # 获取到24-配货sheet表【表字段：jobNo、inputNo】
+        # 获取到28-完成打包sheet表【表字段：jobNo、inputNo】
         new_worksheet = new_workbook.get_sheet(28)
         new_worksheet.write(length, 7, consignmentNo)
-        new_worksheet.write(length, 6, consignmentNo)
         new_worksheet.write(length, 5, packNo)
+
+        # 获取到28-完成打包sheet表【表字段：jobNo、inputNo】
+        new_worksheet1 = new_workbook.get_sheet(26)
+        new_worksheet1.write(length, 6, consignmentNo)
+        new_worksheet1.write(length, 5, packNo)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')
@@ -371,15 +392,16 @@ class WrittenToken:
         new_workbook.save('../xls/测试用例数据2.xls')
 
     @staticmethod
-    def written_packNo(length, packNo):
+    def written_packNo(length, packNo, pickType):
         # # 加载已存在的xls
         old_workbook = xlrd.open_workbook('../xls/测试用例数据2.xls')
         # # 将已存在的excel拷贝进新的excl
         new_workbook = copy(old_workbook)
 
         # 获取到29-拣货单管理页获取订单信息表【表字段：consignmentNo、pickType】
-        new_worksheet = new_workbook.get_sheet(29)
-        new_worksheet.write(length, 6, packNo)
+        new_worksheet = new_workbook.get_sheet(27)
+        new_worksheet.write(length, 5, packNo)
+        new_worksheet.write(length, 6, pickType)
 
         os.remove('../xls/测试用例数据2.xls')
         new_workbook.save('../xls/测试用例数据2.xls')

@@ -25,7 +25,7 @@ class CreatePick(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         taskIds = str(int(taskIds1))
         priority = str(int(priority1))
@@ -43,16 +43,6 @@ class CreatePick(unittest.TestCase):
                  """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        # # # 为收货和上架接口传参数
-        # for t in (0, total - 1):
-        #     logging.info(int(IDX) + t)
-        #     # skuId:skuId
-        #     WrittenToken.written_skuId(int(IDX) + t, re['result']['records'][t]['skuName'],
-        #                                taskNo, consignmentNo, re['result']['records'][t]['skuId'],
-        #                                re['result']['records'][t]['skuCode'],
-        #                                re['result']['records'][t]['planQty'],
-        #                                re['result']['records'][t]['boxBarcode'])
-        #     logging.info(re['result']['records'][t]['skuCode'])
         return re
 
     # WMS获取入库单SKU信息

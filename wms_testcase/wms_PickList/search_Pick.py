@@ -26,7 +26,7 @@ class Search_Pick(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         createUser = str(createUser1)
         pickType = str(int(pickType1))
@@ -49,7 +49,6 @@ class Search_Pick(unittest.TestCase):
         if re['result']['total'] > 0:
             pickNo = re['result']['records'][0]['pickNo']
             ids = re['result']['records'][0]['id']
-            total = re['result']['total']
             WrittenToken.written_PickAndId(int(IDX), pickNo, ids)
         return re
 

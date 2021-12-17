@@ -23,9 +23,13 @@ from oms_testcase.oms_Inbound_Management.getdetail_Inbound import GetDetailInbou
 from wms_testcase.wms_Inbound_Management.search_Inbound import WSearchInbound
 from wms_testcase.wms_Inbound_Management.getdetail_Inbound_sku1 import GetDetailInboundSKU
 from wms_testcase.wms_Receiving.confirm_receipt import ConfirmReceipt
-from wms_testcase.wms_putaway.putaway import PutAway
+# from wms_testcase.wms_putaway.putaway import PutAway
 
+from oms_testcase.oms_outbound_Management.add_outbound import AddOutbound
+from oms_testcase.oms_outbound_Management.search_outbound import SearchOutbound
 from oms_testcase.oms_outbound_Management.getdetail_outbound import GetDetailOutBound
+from oms_testcase.oms_outbound_Management.review_and_void_outbound import ReviewAndVoid_OutBound
+
 from wms_testcase.wms_outbound_Management.wsearch_outbound import WSearchOutbound
 from wms_testcase.wms_PickList.search_CreatePick import SearchCreatePick
 from wms_testcase.wms_PickList.createPick import CreatePick
@@ -57,12 +61,6 @@ suite = unittest.TestSuite()
 # suite.addTest(unittest.makeSuite(GetDetailDeclare))
 # suite.addTest(unittest.makeSuite(ReviewAndVoid_Declarce))
 
-
-# suite.addTest(unittest.makeSuite(AddOutbound))
-# suite.addTest(unittest.makeSuite(SearchOutbound))
-# suite.addTest(unittest.makeSuite(GetDetailOutBound))
-
-
 # suite.addTest(unittest.makeSuite(AddInbound))
 # suite.addTest(unittest.makeSuite(SearchInbound))
 # suite.addTest(unittest.makeSuite(ReviewAndVoid_Inbound))
@@ -73,19 +71,26 @@ suite = unittest.TestSuite()
 # suite.addTest(unittest.makeSuite(GetDetailInboundSKU))
 
 # suite.addTest(unittest.makeSuite(ConfirmReceipt))
-suite.addTest(unittest.makeSuite(PutAway))
+# suite.addTest(unittest.makeSuite(PutAway))
+
+
+# suite.addTest(unittest.makeSuite(AddOutbound))
+# suite.addTest(unittest.makeSuite(SearchOutbound))
+# suite.addTest(unittest.makeSuite(GetDetailOutBound))
+# suite.addTest(unittest.makeSuite(ReviewAndVoid_OutBound))
 
 # suite.addTest(unittest.makeSuite(WSearchOutbound))
 # suite.addTest(unittest.makeSuite(SearchCreatePick))
 # suite.addTest(unittest.makeSuite(CreatePick))
 # suite.addTest(unittest.makeSuite(Search_Pick))
-# suite.addTest(unittest.makeSuite(GetOutBound))
+suite.addTest(unittest.makeSuite(GetOutBound))
 # suite.addTest(unittest.makeSuite(Print_Pick))
 # suite.addTest(unittest.makeSuite(Achieve_Pick))
 # suite.addTest(unittest.makeSuite(Search_InvoicePL))
 # suite.addTest(unittest.makeSuite(Invoice))
 # suite.addTest(unittest.makeSuite(GetPackNo))
 # suite.addTest(unittest.makeSuite(Search_PackPL))
+
 # suite.addTest(unittest.makeSuite(Achieve_Pack))
 
 # 以二进制格式打开../log/report.html文件，如果文件../log/report.html存在则将其覆盖。如果不存在则创建新文件

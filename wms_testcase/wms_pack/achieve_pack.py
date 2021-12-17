@@ -25,7 +25,7 @@ class Achieve_Pack(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
 
         # inputNo:拣货单号、tableNo：配货墙编号、wallNo：操作台编号

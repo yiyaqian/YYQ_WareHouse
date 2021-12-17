@@ -25,7 +25,7 @@ class Search_PackPL(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         pickType = str(int(pickType1))
         # inputNo:拣货单号、tableNo：配货墙编号、wallNo：操作台编号
@@ -47,10 +47,10 @@ class Search_PackPL(unittest.TestCase):
         d = str(re['result']['details'])
         b = d.split('},')
         logging.info(len(b))
-        if message in re['message']:
-            for i in range(0, len(b)-1):
-                skuId = re['result']['details'][i]['skuId']
-                WrittenToken.written_packNo(int(IDX)+i, packNo, pickType)
+        # if message in re['message']:
+        #     for i in range(0, len(b)-1):
+        #         skuId = re['result']['details'][i]['skuId']
+        #         WrittenToken.written_packNo(int(IDX)+i, packNo, pickType)
 
         return re
 

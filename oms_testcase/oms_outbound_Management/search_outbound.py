@@ -46,8 +46,8 @@ class SearchOutbound(unittest.TestCase):
              """
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
-        consignmentNo = re['result']['records'][0]['refNo']
-        if message in result['message']:
+        consignmentNo = re['result']['records'][0]['consignmentNo']
+        if 'None' != re['result']:
             # consignmentNo:出库单号
             WrittenToken.written_orderNumber(int(IDX), consignmentNo)
 

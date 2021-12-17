@@ -1,6 +1,7 @@
 """
 审核和作废SKU接口
 """
+import logging
 import unittest
 
 import ddt
@@ -9,7 +10,6 @@ from excel.read_excel import *
 import json
 from log.case_log import log_case_info
 from lib.general_request import General_request
-import warnings
 from excel.written_token import WrittenToken
 
 result = get_data("../xls/测试用例数据2.xls", 16)
@@ -25,8 +25,9 @@ class ReviewAndVoid_OutBound(unittest.TestCase):
             'Content-Type': content_type,
             'x-access-token': session
         }
-        datas = '"consignmentNo":' + '[' + consignmentNo + ']'
+        datas = '{"consignmentNos":' + '["' + consignmentNo + '"]}'
         data = json.loads(datas)
+        logging.info(type(datas))
         # 3.判断method是否等于"POST" ，是进入if反之则进入else
         if methond == 'POST':
             """
@@ -48,7 +49,7 @@ class ReviewAndVoid_OutBound(unittest.TestCase):
     @ddt.unpack
     def test_ReviewAndVoid_OutBound(self, case_name, IDX, url, methond, content_type, consignmentNo, message):
         result = self.ReviewAndVoid_OutBound(case_name, IDX, url, methond, content_type, consignmentNo, message)
-        datas = '"consignmentNo":' + '[' + consignmentNo + ']'
+        datas = '{"consignmentNo":' + '["' + consignmentNo + '"]}'
         "4.将参数case_name、url、data、message、res、text传入封装输出日志的方法中"
         log_case_info(case_name, url, datas, message, result)
         "5.设置断言，判断是否真的登录成功了"

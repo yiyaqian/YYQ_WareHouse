@@ -26,7 +26,7 @@ class WSearchOutbound(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         keyType = str(int(keyType1))
         skuId = str(skuId1)
@@ -48,12 +48,13 @@ class WSearchOutbound(unittest.TestCase):
             res = self.req.get_way(url=url, params=data, headers=header)  # 请求登录接口
             re = res.json()  # 转为json格式供assertEqual断言使用
 
-        status = re['result']['records'][0]['status']
-        consignmentNo = re['result']['records'][0]['consignmentNo']
-        pickType = re['result']['records'][0]['pickType']
-        if message in re['message'] and 'O' in status:
-            # consignmentNo:出库单号
-            WrittenToken.written_OutNoAndPickType(int(IDX), consignmentNo, pickType)
+        total = re['result']['total']
+        if total > 0:
+            consignmentNo = re['result']['records'][0]['consignmentNo']
+            pickType = re['result']['records'][0]['pickType']
+            status = re['result']['records'][0]['status']
+            if 'O' in status:
+                WrittenToken.written_OutNoAndPickType(int(IDX), consignmentNo, pickType)
 
         return re
 

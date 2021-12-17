@@ -1,31 +1,15 @@
-[2021-12-16 19:34:30] INFO [<module>: add_Inbound.py, 16] [['新增入库', 1.0, 'http://192.168.3.20:9998/oms/inbound/create', 'POST', 'application/json', 'YIYAQIANRKD', '080335', 'UK01', 'UK01', 'S', 'E', '', 1639653018.0000002, 12.0, 123.0, '备注', 'P', 1.0, '001659', 'SKUCODE', '1638516725', 'SKUNAME', '1638516725', 12.0, 12.123, 12.123, 12.123, 100.0, 'N', 'Operation Success']]
-[2021-12-16 19:34:30] INFO [<module>: run_all.py, 44] ====================== 测试开始 =======================
-[2021-12-16 19:34:30] DEBUG [_new_conn: connectionpool.py, 227] Starting new HTTP connection (1): 192.168.3.20:9998
-[2021-12-16 19:34:30] DEBUG [_make_request: connectionpool.py, 452] http://192.168.3.20:9998 "POST /wms/itask/summary/box HTTP/1.1" 200 None
-[2021-12-16 19:34:30] INFO [getdetail_Inbound_sku: getdetail_Inbound_sku1.py, 49] 1
-[2021-12-16 19:34:30] INFO [getdetail_Inbound_sku: getdetail_Inbound_sku1.py, 52] <class 'int'>
-[2021-12-16 19:34:30] INFO [getdetail_Inbound_sku: getdetail_Inbound_sku1.py, 56] 99
-[2021-12-16 19:34:30] INFO [getdetail_Inbound_sku: getdetail_Inbound_sku1.py, 52] <class 'int'>
-[2021-12-16 19:34:30] INFO [getdetail_Inbound_sku: getdetail_Inbound_sku1.py, 56] 99
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 8] 进入测试用例：WM获取入库单SKU信息
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 9] url：http://192.168.3.20:9998/wms/itask/summary/box
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 10] 请求参数：{"taskNo":"ITUK012112160002","loading":true}
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 11] 期望结果：Operation Success
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 12] 实际结果：{'success': True, 'message': 'Operation Success', 'code': '200', 'result': {'records': [{'taskNo': 'ITUK012112160002', 'boxNo': '1', 'boxBarcode': 'ICHUA211216000200001', 'skuId': 1000327810, 'skuCode': 'SKUCODE1638516725', 'skuName': 'SKUNAME1638516725', 'batchNo': '14107', 'planQty': 100, 'receivedQty': 100, 'abnormalQty': 0, 'putawayQty': 1, 'putawayTime': 0, 'receiveTime': 1639645219192, 'planWeight': 12, 'planLength': 12.123, 'planWidth': 12.123, 'planHeight': 12.123, 'weight': 12.0, 'length': 12.0, 'width': 12.0, 'height': 12.0, 'logisticsPackage': 'Y'}], 'total': 1, 'size': 20, 'current': 1}, 'timestamp': 1639654469125, 'errors': None}
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 13] 结束测试用例：WM获取入库单SKU信息
-[2021-12-16 19:34:30] INFO [log_case_info: case_log.py, 14] ---------------------------------------------------------------------------------------------------------
-[2021-12-16 19:34:30] INFO [<module>: run_all.py, 96] ======================= 测试结束 =======================
-[2021-12-16 19:34:52] INFO [<module>: add_Inbound.py, 16] [['新增入库', 1.0, 'http://192.168.3.20:9998/oms/inbound/create', 'POST', 'application/json', 'YIYAQIANRKD', '080335', 'UK01', 'UK01', 'S', 'E', '', 1639653018.0000002, 12.0, 123.0, '备注', 'P', 1.0, '001659', 'SKUCODE', '1638516725', 'SKUNAME', '1638516725', 12.0, 12.123, 12.123, 12.123, 100.0, 'N', 'Operation Success']]
-[2021-12-16 19:34:52] INFO [<module>: run_all.py, 44] ====================== 测试开始 =======================
-[2021-12-16 19:34:52] INFO [putaway: putaway.py, 31] <class 'str'>
-[2021-12-16 19:34:52] INFO [putaway: putaway.py, 35] {"skuName":"SKUNAME1638516725","batchNo":"","qty":99,"taskNo":"ITUK012112160002","stockQuality":"G","consignmentNo":"ICHUA2112160002","skuId":1000327810,"skuCode":"SKUCODE1638516725","putawayQty":"99","locationCode":"206.04.1.1"}
-[2021-12-16 19:34:52] DEBUG [_new_conn: connectionpool.py, 227] Starting new HTTP connection (1): 192.168.3.20:9998
-[2021-12-16 19:34:52] DEBUG [_make_request: connectionpool.py, 452] http://192.168.3.20:9998 "POST /wms/putaway/skuPutaway HTTP/1.1" 200 None
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 8] 进入测试用例：上架
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 9] url：http://192.168.3.20:9998/wms/putaway/skuPutaway
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 10] 请求参数：{"skuName":"SKUNAME1638516725","batchNo":"","qty":99,"taskNo":"ITUK012112160002","stockQuality":"G","consignmentNo":"ICHUA2112160002","skuId":1000327810,"skuCode":SKUCODE1638516725","putawayQty":"99","locationCode":"206.04.1.1"}
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 11] 期望结果：Operation Success
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 12] 实际结果：{'success': False, 'message': '库位已锁定，不允许操作！', 'code': '0102019', 'result': None, 'timestamp': 1639654491196, 'errors': None}
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 13] 结束测试用例：上架
-[2021-12-16 19:34:52] INFO [log_case_info: case_log.py, 14] ---------------------------------------------------------------------------------------------------------
-[2021-12-16 19:34:52] INFO [<module>: run_all.py, 96] ======================= 测试结束 =======================
+[2021-12-17 19:59:29] INFO [<module>: run_all.py, 48] ====================== 测试开始 =======================
+[2021-12-17 19:59:29] DEBUG [_new_conn: connectionpool.py, 971] Starting new HTTPS connection (1): gateway1.grll.co.uk:443
+[2021-12-17 19:59:29] DEBUG [_make_request: connectionpool.py, 452] https://gateway1.grll.co.uk:443 "POST /wms/picking/manager/pickTaskPage HTTP/1.1" 200 None
+[2021-12-17 19:59:29] INFO [<module>: run_all.py, 101] ======================= 测试结束 =======================
+[2021-12-17 20:00:21] INFO [<module>: run_all.py, 48] ====================== 测试开始 =======================
+[2021-12-17 20:00:21] DEBUG [_new_conn: connectionpool.py, 971] Starting new HTTPS connection (1): gateway1.grll.co.uk:443
+[2021-12-17 20:00:22] DEBUG [_make_request: connectionpool.py, 452] https://gateway1.grll.co.uk:443 "POST /wms/picking/manager/pickTaskPage HTTP/1.1" 200 None
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 8] 进入测试用例：拣货单管理页获取订单信息
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 9] url：https://gateway1.grll.co.uk/wms/picking/manager/pickTaskPage
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 10] 请求参数：{"pickNo":"PLTS012112170006"}
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 11] 期望结果：Operation Success
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 12] 实际结果：{'success': True, 'message': '操作成功！', 'code': '200', 'result': {'records': [{'totalVolume': 24.0, 'refNo': 'YIYAQIAN11021535', 'logisticsProduct': 'TEST-CPA', 'transportChannel': 'TEST-QDA', 'customerCode': '10001', 'remark': 'Test order', 'oda': '', 'version': 2835, 'consignmentNo': '10001-211102-0006', 'warehouseCode': 'TS01', 'combinationCode': '6427839bec15e8bd99664b622a3d1b64', 'shippingWeight': 0.0, 'shippingNo': '', 'taskNo': '10001-211102-0006', 'totalWeight': 6000.0, 'id': 919302, 'status': 'R'}], 'total': 1, 'size': 20, 'current': 1, 'orders': [], 'optimizeCountSql': True, 'hitCount': False, 'countId': None, 'maxLimit': None, 'searchCount': True, 'pages': 1}, 'timestamp': 1639742422118, 'errors': None}
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 13] 结束测试用例：拣货单管理页获取订单信息
+[2021-12-17 20:00:22] INFO [log_case_info: case_log.py, 14] ---------------------------------------------------------------------------------------------------------
+[2021-12-17 20:00:22] INFO [<module>: run_all.py, 101] ======================= 测试结束 =======================

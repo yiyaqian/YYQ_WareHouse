@@ -12,7 +12,7 @@ from lib.general_request import General_request
 import json
 from log.case_log import log_case_info
 
-result = get_data('../xls/测试用例数据.xls', 0)
+result = get_data('../xls/测试用例数据2.xls', 13)
 
 
 @ddt.ddt

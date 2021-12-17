@@ -25,7 +25,7 @@ class GetPackNo(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
 
         # inputNo:拣货单号、tableNo：配货墙编号、wallNo：操作台编号
@@ -47,7 +47,8 @@ class GetPackNo(unittest.TestCase):
         if 'None' != re['result']:
             logging.info(re['result'])
             packNo = re['result']['packNo']
-            WrittenToken.written_packNo(int(IDX), packNo)
+            pickType = re['result']['pickType']
+            WrittenToken.written_packNo(int(IDX), packNo, pickType)
 
         return re
 

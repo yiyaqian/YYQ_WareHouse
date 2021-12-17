@@ -24,7 +24,7 @@ class Print_Pick(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         pickIds = str(int(pickId))
         datas = '{' + '"printType":"' + printType + '",' + '"pickIds":[' + pickIds + '],' + '"pickNos":' + '["' + pickNos + '"]}'

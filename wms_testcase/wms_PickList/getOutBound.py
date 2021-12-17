@@ -24,7 +24,7 @@ class GetOutBound(unittest.TestCase):
         header = {
             'Content-Type': content_type,
             'x-access-token': session,
-            'tenant_id': '2'
+            'tenant_id': '7'
         }
         datas = '{' + '"pickNo":"' + pickNo + '"}'
         data = json.loads(datas)
